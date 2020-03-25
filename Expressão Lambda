@@ -34,7 +34,7 @@ public class TestaLambda {
         
         //exemplo do uso de uma expressão lambda, usando predicate
         Predicate<Pessoa> criterio = (Pessoa p) -> {
-				    return p.getIdade() >=18;
+		return p.getIdade() >=18;
         };
 
         //Expressão lambda sendo passada diretamente como um parâmetro
