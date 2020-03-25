@@ -1,0 +1,48 @@
+public class FiltradorDePessoas {
+    //Recebe uma lista de pessoas e um predicate para fazer o filtro
+    public List<Pessoa> filtra(List<Pessoa> pessoas, Predicate<Pessoa> matcher){
+        List<Pessoa> resultado = new ArrayList<>();
+        for (Pessoa pessoa : pessoas){
+            if (matcher.test(pessoa)) 
+                resultado.add(pessoa);
+        }
+        return resultado;
+    }
+}
+
+public class Pessoa{
+    private String nome;
+    private int idade;
+
+    public Pessoa(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+}
+    
+public class TestaLambda {
+    public static void main(String args[]){
+        //Criando uma lista de pessoas
+        List<Pessoa> pessoas = Arrays.asList(new Pessoa("Mario",29),
+                                new Pessoa("Gui", 31),
+                                new Pessoa("Joao", 17),
+                                new Pessoa("Maria", 19),
+                                new Pessoa("Alicia", 16));
+  
+        //Criando um novo filtro
+        FiltradorDePessoas filtrador = new FiltradorDePessoas();
+        
+        //exemplo do uso de uma expressão lambda, usando predicate
+        Predicate<Pessoa> criterio = (Pessoa p) -> {
+				    return p.getIdade() >=18;
+        };
+
+        //Expressão lambda sendo passada diretamente como um parâmetro
+        List<Pessoa> resultado = filtrador.filtra(pessoas, p -> p.getIdade() >=18);
+        System.out.println(resultado);
+
+        //Olha a facilidade de criar um novo filtro usando expressões lambdas!!!
+        List<Pessoa> resultado2 = filtrador.filtra(pessoas, p -> p.getNome().startsWith("M"));
+        System.out.println(resultado2);
+    }
+}
